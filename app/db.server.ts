@@ -21,14 +21,14 @@ export function cacheOnContext<T>(
   context: AppLoadContext,
   key: string,
   fn: () => Promise<T>
-) {
+): Promise<T> {
   context.dataCache = context.dataCache || {};
 
   if (!context.dataCache[key]) {
     context.dataCache[key] = fn();
   }
 
-  return context.dataCache[key];
+  return context.dataCache[key] as Promise<T>;
 }
 
 export function getCachedUser(context: AppLoadContext) {
