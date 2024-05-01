@@ -1,10 +1,10 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, Outlet, useLoaderData } from "@remix-run/react";
-import { getUser } from "~/db.server";
+import { getCachedUser } from "~/db.server";
 
-export async function loader({}: LoaderFunctionArgs) {
+export async function loader({ context }: LoaderFunctionArgs) {
   return {
-    user: await getUser(),
+    user: await getCachedUser(context),
   };
 }
 

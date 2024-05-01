@@ -6,7 +6,7 @@ declare module "@remix-run/node" {
   }
 }
 
-export async function getUser() {
+async function getUser() {
   console.log(new Date().toLocaleTimeString() + ": getUser() called");
 
   // Wait for 500ms to simulate a slow database query
@@ -17,20 +17,20 @@ export async function getUser() {
   };
 }
 
-// export function cacheOnContext<T>(
-//   context: AppLoadContext,
-//   key: string,
-//   fn: () => Promise<T>
-// ) {
-//   context.dataCache = context.dataCache || {};
+export function cacheOnContext<T>(
+  context: AppLoadContext,
+  key: string,
+  fn: () => Promise<T>
+) {
+  context.dataCache = context.dataCache || {};
 
-//   if (!context.dataCache[key]) {
-//     context.dataCache[key] = fn();
-//   }
+  if (!context.dataCache[key]) {
+    context.dataCache[key] = fn();
+  }
 
-//   return context.dataCache[key];
-// }
+  return context.dataCache[key];
+}
 
-// export function getCachedUser(context: AppLoadContext) {
-//   return cacheOnContext(context, "user", getUser);
-// }
+export function getCachedUser(context: AppLoadContext) {
+  return cacheOnContext(context, "user", getUser);
+}
